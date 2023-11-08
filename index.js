@@ -3,14 +3,18 @@ import "./navigo.js";
 import { setActiveLink, loadHtml, renderHtml } from "./utility.js";
 
 import { initHome } from "./pages/home/home.js";
+import { initStores } from "./pages/stores/stores.js";
 import { initSignup } from "./pages/signup/signup.js";
 import { initLogin, toggleLoginStatus, logout } from "./pages/login/login.js";
+import { initFoodplan } from "./pages/foodplan/foodplan.js";
 
 window.addEventListener("load", async () => {
   const templateHome = await loadHtml("./pages/home/home.html");
   const templateSignup = await loadHtml("./pages/signup/signup.html");
   const templateNotFound = await loadHtml("./pages/notFound/notFound.html");
+  const templateStores = await loadHtml("./pages/stores/stores.html");
   const templateLogin = await loadHtml("./pages/login/login.html");
+  const templateFoodplan = await loadHtml("./pages/foodplan/foodplan.html");
 
   //If token existed, for example after a refresh, set UI accordingly
   const token = localStorage.getItem("token");
@@ -42,6 +46,14 @@ window.addEventListener("load", async () => {
       "/logout": () => {
         renderHtml(templateLogin, "content");
         logout();
+      },
+      "/stores": () => {
+        renderHtml(templateStores, "content");
+        initStores();
+      },
+      "/foodplan": () => {
+        renderHtml(templateFoodplan, "content");
+        initFoodplan();
       },
     })
     .notFound(() => {

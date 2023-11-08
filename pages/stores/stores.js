@@ -3,10 +3,14 @@ import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows } from "./..
 
 const URL = API_URL + "/stores"
 export async function initStores(){
-   //document.querySelector('#submit-zip').addEventListener("click", getStores)
+   document.querySelector('#submit-zip').addEventListener("click", tableRowShow )
    document.querySelector('#submit-zip').addEventListener("click", () => getStores(document.querySelector('#zipcode-input').value)); 
 }
 
+function tableRowShow() {
+    document.querySelector('.zip-table').style.visibility = "visible"
+
+}
 async function getStores(zip){
     //const zip = document.querySelector('#zipcode-input').value
 

@@ -1,0 +1,24 @@
+<div class="template">
+    <div class="container">
+        <h1>Zip Code Form</h1>
+          <div class="form-group text-center">
+              <br>
+              <div style="font-size: x-large;">Start med at finde en butik nær dig </div><br>
+              <label for="zipcode-input"></label>
+              <input type="text" class="form-control-sm text-center" id="zipcode-input" placeholder="Indtast postnummer">
+          <button type="submit" id="submit-zip" class="btn btn-warning btn-sm ">Submit</button>
+      </div>
+    </div>
+    <table class="zip-table table" style="visibility: hidden;">
+        <thead>
+          <tr>
+            <th>Navn</th>
+            <th>By</th>
+            <th>Gade</th>
+            <th>Postnummer</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="zip-tablerows"></tbody>
+      </table>
+</div>

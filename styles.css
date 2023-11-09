@@ -1,0 +1,21 @@
+html {
+    scroll-behavior: smooth;
+  }
+   
+  .btn-lg:hover {
+    animation: bubble 1s ease-in-out infinite;
+  }
+  .btn-lg{
+    text-shadow: 0.5px 0px 0.5px #fff;
+  }
+  @keyframes bubble {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

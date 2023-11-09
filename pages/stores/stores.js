@@ -37,37 +37,3 @@ function chooseStore(e){
     router.navigate(`/foodplan/?storeid=${storeId}`)
 
 } 
-/*
-document.querySelector("#square-container").addEventListener("click",function (event) {
-    let target = event.target;
-
-    while (target && !target.id) {
-      target = target.parentElement;
-    }
-
-    if (target) {
-      const id = target.id.split("_")[0];
-        if(localStorage.getItem("roles") == "USER"){
-          router.navigate(/movieshow/?id=${id});
-        } else {
-          router.navigate(/login);
-        }
-      }
-  });
-*/
-
-/*
-async function setUpDeleteModal(e) {
-    const btn = e.target;
-
-    if(!btn.id.includes("_movie-id")){
-        return;
-    }
-    const movieId = btn.id.split("_")[0];
-    const header = `Delete movie with id ${movieId}?`
-
-    document.querySelector("#delete-modal-label").textContent = header;
-
-    document.querySelector("#delete-modal").addEventListener("click", async () => { await deleteMovie(movieId) });
-    }
-*/

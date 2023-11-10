@@ -4,10 +4,12 @@ import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows } from "./..
 const URL = API_URL + "/stores"
 export async function initStores(){
    document.querySelector('#submit-zip').addEventListener("click", () => getStores(document.querySelector('#zipcode-input').value));
+   document.querySelector('#zip-tablerows').addEventListener("click", function (e) {
+    chooseStore(e);
+   })
 }
 
 async function getStores(zip){
-    //const zip = document.querySelector('#zipcode-input').value
     document.querySelector('.zip-table').style.visibility = "visible"
     const stores = await fetch(URL + "?zipcode=" + zip, makeOptions("GET", null, false)).then(r =>handleHttpErrors(r))
     const storeRows = stores.map(store => `
@@ -20,20 +22,17 @@ async function getStores(zip){
         </tr>`
         ).join("")
     document.querySelector('#zip-tablerows').innerHTML = sanitizeStringWithTableRows(storeRows);
-    document.querySelector('.choose-store').addEventListener("click", chooseStore); 
 
 } 
 
 function chooseStore(e){
     const btn = e.target;
 
-    if(!btn.id.includes("_storeid")){
+    if (!btn.id || !btn.id.includes("_storeid")) {
         return;
     }
 
     const storeId = btn.id.split("_")[0];
 
-
-    router.navigate(`/foodplan/?storeid=${storeId}`)
-
+    router.navigate(`/foodplan/?storeid=${storeId}`);
 } 

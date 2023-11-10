@@ -1,5 +1,5 @@
 import { API_URL } from "./../../settings.js"
-import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows } from "./../../utility.js"
+import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows, sanitizer } from "./../../utility.js"
 
 const URL = API_URL + "/recipes/limited"
 
@@ -11,8 +11,19 @@ export async function initFoodplan(match){
 }
 
 async function fetchRecipe(storeId){
-        console.log(URL + "?storeId=" + storeId)
-        
-        const recipe = await fetch(URL + "?storeId=" + storeId, makeOptions("GET", null, false)).then(r =>handleHttpErrors(r))
-        console.log(recipe)
+        const data = await fetch(URL + "?storeId=" + storeId, makeOptions("GET", null, false)).then(r =>handleHttpErrors(r))
+
+        var recipeText = data.answer;
+        var lines = recipeText.split('\n');
+
+        var htmlOutput = '<p>';
+        lines.forEach(function(line) {
+            if (line.trim() !== '') {
+            var depth = line.split('  ').length - 1;
+            htmlOutput += '&emsp;'.repeat(depth) + line.trim() + '<br>';
+            }
+        });
+        htmlOutput += '</p>'
+        document.querySelector(".card-text").innerHTML = sanitizer(htmlOutput)
 }
+

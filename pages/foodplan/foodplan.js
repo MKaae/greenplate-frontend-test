@@ -11,25 +11,19 @@ export async function initFoodplan(match){
 }
 
 async function fetchRecipe(storeId){
-        console.log(URL + "?storeId=" + storeId)
-        
-        const recipe = await fetch(URL + "?storeId=" + storeId, makeOptions("GET", null, false)).then(r =>handleHttpErrors(r))
-        console.log(recipe)
+        const data = await fetch(URL + "?storeId=" + storeId, makeOptions("GET", null, false)).then(r =>handleHttpErrors(r))
 
+        var recipeText = data.answer;
+        var lines = recipeText.split('\n');
 
-        // // Parse the JSON string
-        // const jsonData = JSON.parse(JSON.stringify(recipe));
-        // // Function to format JSON content into HTML
-        // console.log("recipe: ", jsonData)
-        // function formatJsonToHtml(jsonData) {
-        //     return Object.entries(jsonData)
-        //       .map(([key, value]) => `<strong>${key}:</strong><br>${value.replace(/\n/g, '<br>')}<br>`)
-        //       .join('');
-        //   }
-        //   console.log(jsonData)
-        // // Insert the formatted HTML into the card body
-        // document.getElementById('.card-text').innerHTML = formatJsonToHtml(jsonData);
-
-        document.querySelector(".card-text").innerHTML = sanitizer(JSON.stringify(recipe))
+        var htmlOutput = '<p>';
+        lines.forEach(function(line) {
+            if (line.trim() !== '') {
+            var depth = line.split('  ').length - 1;
+            htmlOutput += '&emsp;'.repeat(depth) + line.trim() + '<br>';
+            }
+        });
+        htmlOutput += '</p>'
+        document.querySelector(".card-text").innerHTML = sanitizer(htmlOutput)
 }
 

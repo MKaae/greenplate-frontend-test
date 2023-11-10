@@ -3,9 +3,12 @@ import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows } from "./..
 
 const URL = API_URL + "/stores"
 export async function initStores(){
-   document.querySelector('#submit-zip').addEventListener("click", () => getStores(document.querySelector('#zipcode-input').value));
-   document.querySelector('#zip-tablerows').addEventListener("click", function (e) {
-    chooseStore(e);
+    document.querySelector('#submit-zip').addEventListener("click", () => {
+        showSpinner(); // Show the spinner while data is being loaded
+        getStores(document.querySelector('#zipcode-input').value);
+    });
+    document.querySelector('#zip-tablerows').addEventListener("click", function (e) {
+        chooseStore(e);   
    })
 }
 
@@ -21,6 +24,7 @@ async function getStores(zip){
             <td><button id="${store.id}_storeid" class="choose-store btn btn-sm btn-danger">Vælg butik</button></td>
         </tr>`
         ).join("")
+        hideSpinner(); // Hide the spinner when data is loaded
     document.querySelector('#zip-tablerows').innerHTML = sanitizeStringWithTableRows(storeRows);
 
 } 
@@ -36,3 +40,12 @@ function chooseStore(e){
 
     router.navigate(`/foodplan/?storeid=${storeId}`);
 } 
+function showSpinner() {
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
+}
+
+function hideSpinner() {
+    var spinner = document.getElementById("spinner");
+    spinner.style.display = "none";
+}

@@ -4,7 +4,6 @@ import { handleHttpErrors, makeOptions, sanitizeStringWithTableRows, sanitizer }
 const URL = API_URL + "/recipes/limited"
 
 export async function initFoodplan(match){
-    console.log("initFoodplan()")
     const storeId = match.params.storeid    
     fetchRecipe(storeId)
     showSpinner(); // Show the spinner while data is being loaded
